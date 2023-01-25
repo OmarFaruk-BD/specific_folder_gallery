@@ -47,11 +47,14 @@ class _FirstPageState extends State<FirstPage> {
           Navigator.push<void>(
             context,
             MaterialPageRoute<void>(
-              builder: (BuildContext context) => ImageGrid(),
+              builder: (BuildContext context) => const ImageGrid(),
             ),
           );
         },
-        child: const Text('ImageGrid'),
+        child: Container(
+            color: Colors.purpleAccent.withOpacity(.3),
+            padding: const EdgeInsets.all(22),
+            child: const Text('Press here\nto show\nImage Grid')),
       )),
     );
   }

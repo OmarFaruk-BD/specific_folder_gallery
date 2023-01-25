@@ -13,18 +13,23 @@ class ImageGrid extends StatefulWidget {
 class _ImageGridState extends State<ImageGrid> {
   final directory = Directory('/storage/emulated/0/Download/');
 
-  List<String> imageList() {
-    RegExp regExp =
-        RegExp(".(gif|jpe?g|tiff?|png|webp|bmp)", caseSensitive: false);
-    final imageList =
-        directory.listSync().map((item) => item.path).where((item) {
-      return regExp.hasMatch(item);
-    }).toList(growable: false);
-    return imageList;
-  }
-
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: _buildAppBar(),
+      body: _buildBody(),
+    );
+  }
+
+  AppBar _buildAppBar() {
+    return AppBar(
+      title: const Text('Images From Specific Folder'),
+      leading: const BackButton(),
+      elevation: 0,
+    );
+  }
+
+  GridView _buildBody() {
     return GridView.builder(
       itemCount: imageList().length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -71,5 +76,15 @@ class _ImageGridState extends State<ImageGrid> {
         );
       },
     );
+  }
+
+  List<String> imageList() {
+    RegExp regExp =
+        RegExp(".(gif|jpe?g|tiff?|png|webp|bmp)", caseSensitive: false);
+    final imageList =
+        directory.listSync().map((item) => item.path).where((item) {
+      return regExp.hasMatch(item);
+    }).toList(growable: false);
+    return imageList;
   }
 }
